@@ -12,7 +12,7 @@
     "symfony/lock": "^6.4",
     "symfony/framework-bundle": "^6.4",
     "symfony/security-bundle": "^6.4",
-    "symfony/service-contracts": "^3",
+    "symfony/service-contracts": "^3.5",
     "tourze/json-rpc-core": "^0.0.6",
     "tourze/lock-service-bundle": "0.0.*",
     "psr/log": "^3|^2|^1",
