@@ -24,6 +24,11 @@
       "Tourze\\JsonRPCLockBundle\\": "src"
     }
   },
+  "autoload-dev": {
+    "psr-4": {
+      "Tourze\\JsonRPCLockBundle\\Tests\\": "tests"
+    }
+  },
   "require-dev": {
     "phpunit/phpunit": "^10.0",
     "phpstan/phpstan": "^2.1"
