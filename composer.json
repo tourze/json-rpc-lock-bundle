@@ -13,10 +13,11 @@
     "symfony/framework-bundle": "^6.4",
     "symfony/security-bundle": "^6.4",
     "symfony/service-contracts": "^3.5",
+    "symfony/yaml": "^6.4 || ^7.1",
+    "tourze/backtrace-helper": "~0.0.5",
     "tourze/json-rpc-core": "^0.0.6",
     "tourze/lock-service-bundle": "0.0.*",
     "psr/log": "^3|^2|^1",
-    "symfony/yaml": "^6.4 || ^7.1",
     "psr/simple-cache": "^1.0|^2.0|^3.0"
   },
   "autoload": {
