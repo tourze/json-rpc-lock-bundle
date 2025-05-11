@@ -62,7 +62,7 @@ abstract class LockableProcedure extends BaseProcedure implements ServiceSubscri
      * 要注意，这里我们不应该把参数信息加入到锁中去
      * 如果返回null，则说明跳过加锁逻辑
      */
-    protected function getLockResource(JsonRpcParams $params): ?array
+    public function getLockResource(JsonRpcParams $params): ?array
     {
         // TODO 是否可以在 property 上面加注解来声明要不要加锁呢？
 
