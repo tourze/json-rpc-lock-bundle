@@ -6,7 +6,6 @@
   "require": {
     "php": "^8.1",
     "psr/log": "^3|^2|^1",
-    "psr/simple-cache": "^1.0|^2.0|^3.0",
     "symfony/cache-contracts": "^3",
     "symfony/config": "^6.4",
     "symfony/dependency-injection": "^6.4",
@@ -17,8 +16,9 @@
     "symfony/service-contracts": "^3.5",
     "symfony/yaml": "^6.4 || ^7.1",
     "tourze/backtrace-helper": "~0.0.5",
+    "tourze/bundle-dependency": "0.0.*",
     "tourze/json-rpc-core": "^0.0.6",
-    "tourze/lock-service-bundle": "0.0.*"
+    "tourze/lock-service-bundle": "0.1.*"
   },
   "require-dev": {
     "phpstan/phpstan": "^2.1",

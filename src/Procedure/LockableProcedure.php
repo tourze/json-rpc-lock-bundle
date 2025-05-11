@@ -3,10 +3,11 @@
 namespace Tourze\JsonRPCLockBundle\Procedure;
 
 use Psr\Log\LoggerInterface;
-use Psr\SimpleCache\CacheInterface;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Lock\Exception\LockAcquiringException;
 use Symfony\Component\Lock\Exception\LockConflictedException;
+use Symfony\Contracts\Cache\CacheInterface;
+use Symfony\Contracts\Cache\ItemInterface;
 use Symfony\Contracts\Service\Attribute\SubscribedService;
 use Symfony\Contracts\Service\ServiceMethodsSubscriberTrait;
 use Symfony\Contracts\Service\ServiceSubscriberInterface;
@@ -90,6 +91,23 @@ abstract class LockableProcedure extends BaseProcedure implements ServiceSubscri
         return null;
     }
 
+    private function getIdempotentCache(JsonRpcRequest $request): mixed
+    {
+        $cacheKey = $this->getIdempotentCacheKey($request);
+
+        $res = $this->getCache()->get($cacheKey, function (ItemInterface $item) {
+            if ($item->isHit()) {
+                return $item->get();
+            }
+            return false;
+        });
+
+        if ($res !== false) {
+            return $res;
+        }
+        return null;
+    }
+
     public function __invoke(JsonRpcRequest $request): mixed
     {
         $lockResources = $this->getLockResource($request->getParams());
@@ -106,38 +124,33 @@ abstract class LockableProcedure extends BaseProcedure implements ServiceSubscri
         }
         $lockResources = array_values(array_unique($lockResources));
 
-        $cacheKey = $this->getIdempotentCacheKey($request);
-        if ($cacheKey !== null) {
-            // 尝试读取缓存
-            $res = $this->getCache()->get($cacheKey, false);
-            if ($res !== false) {
-                return $res;
-            }
+        $res = $this->getIdempotentCache($request);
+        if ($res !== null) {
+            return $res;
         }
 
         try {
             $res = $this->getLockService()->blockingRun($lockResources, fn() => parent::__invoke($request));
+            $cacheKey = $this->getIdempotentCacheKey($request);
             if ($cacheKey !== null) {
-                $this->getCache()->set($cacheKey, $res, 60); // 默认1分钟缓存
+                $this->getCache()->get($cacheKey, function (ItemInterface $item) use ($res) {
+                    $item->set($res);
+                    $item->expiresAfter(60); // 默认1分钟缓存
+                    return $item->get();
+                });
             }
             return $res;
         } catch (LockConflictedException $exception) {
-            if ($cacheKey !== null) {
-                // 尝试读取缓存
-                $res = $this->getCache()->get($cacheKey, false);
-                if ($res !== false) {
-                    return $res;
-                }
+            $res = $this->getIdempotentCache($request);
+            if ($res !== null) {
+                return $res;
             }
 
             throw new ApiException($_ENV['JSON_RPC_RESPONSE_EXCEPTION_MASSAGE'] ?? '你手速太快了，请稍候', previous: $exception);
         } catch (LockAcquiringException $exception) {
-            if ($cacheKey !== null) {
-                // 尝试读取缓存
-                $res = $this->getCache()->get($cacheKey, false);
-                if ($res !== false) {
-                    return $res;
-                }
+            $res = $this->getIdempotentCache($request);
+            if ($res !== null) {
+                return $res;
             }
 
             throw new ApiException($_ENV['JSON_RPC_RESPONSE_EXCEPTION_MASSAGE'] ?? '你手速太快了，请稍等', previous: $exception);
