@@ -44,7 +44,7 @@ class MyProcedure extends LockableProcedure
     }
     
     // 可选：自定义锁资源标识
-    protected function getLockResource(JsonRpcParams $params): ?array
+    public function getLockResource(JsonRpcParams $params): ?array
     {
         return ['custom_resource_' . $params->get('id')];
     }
