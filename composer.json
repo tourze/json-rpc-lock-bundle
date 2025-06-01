@@ -17,7 +17,7 @@
     "symfony/yaml": "^6.4 || ^7.1",
     "tourze/backtrace-helper": "~0.0.5",
     "tourze/bundle-dependency": "0.0.*",
-    "tourze/json-rpc-core": "^0.0.6",
+    "tourze/json-rpc-core": "0.0.*",
     "tourze/lock-service-bundle": "0.1.*"
   },
   "require-dev": {
