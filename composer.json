@@ -13,6 +13,7 @@
     "symfony/http-kernel": "^6.4",
     "symfony/lock": "^6.4",
     "symfony/security-bundle": "^6.4",
+    "symfony/security-core": "^6.4",
     "symfony/service-contracts": "^3.5",
     "symfony/yaml": "^6.4 || ^7.1",
     "tourze/backtrace-helper": "~0.0.5",
