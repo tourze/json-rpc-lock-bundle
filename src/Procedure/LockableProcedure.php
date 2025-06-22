@@ -67,9 +67,10 @@ abstract class LockableProcedure extends BaseProcedure implements ServiceSubscri
         // TODO 是否可以在 property 上面加注解来声明要不要加锁呢？
 
         // 如果当前用户有登录的话，那就按照用户维护来加锁
-        if ($this->getSecurity()->getUser()) {
+        $user = $this->getSecurity()->getUser();
+        if ($user !== null) {
             return [
-                $this->getSecurity()->getUser()->getUserIdentifier(),
+                $user->getUserIdentifier(),
             ];
         }
 

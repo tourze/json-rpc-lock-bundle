@@ -26,7 +26,7 @@ class LockableProcedureEdgeCaseTest extends TestCase
                 return [];
             }
 
-            public function getLockResource(\Tourze\JsonRPC\Core\Model\JsonRpcParams $params): ?array
+            public function getLockResource(\Tourze\JsonRPC\Core\Model\JsonRpcParams $params): array
             {
                 return ['valid_resource', '', null, 'another_valid_resource', 0];
             }
@@ -83,7 +83,7 @@ class LockableProcedureEdgeCaseTest extends TestCase
                 return [];
             }
 
-            public function getLockResource(\Tourze\JsonRPC\Core\Model\JsonRpcParams $params): ?array
+            public function getLockResource(\Tourze\JsonRPC\Core\Model\JsonRpcParams $params): array
             {
                 return ['string_resource', $this->entity1, $this->entity2];
             }
@@ -121,7 +121,7 @@ class LockableProcedureEdgeCaseTest extends TestCase
                 return [];
             }
 
-            public function getLockResource(\Tourze\JsonRPC\Core\Model\JsonRpcParams $params): ?array
+            public function getLockResource(\Tourze\JsonRPC\Core\Model\JsonRpcParams $params): array
             {
                 return ['resource_a', 'resource_b', 'resource_a', 'resource_c', 'resource_b'];
             }

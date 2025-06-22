@@ -96,8 +96,6 @@ class LockableProcedureTest extends TestCase
         /** @var JsonRpcParams&MockObject $mockParams */
         $mockParams = $this->createMock(JsonRpcParams::class);
         $resources = $procedure->getLockResource($mockParams);
-
-        $this->assertIsArray($resources);
         $this->assertContains($procedure::getProcedureName(), $resources);
     }
 
@@ -124,8 +122,6 @@ class LockableProcedureTest extends TestCase
         /** @var JsonRpcParams&MockObject $mockParams */
         $mockParams = $this->createMock(JsonRpcParams::class);
         $resources = $procedure->getLockResource($mockParams);
-
-        $this->assertIsArray($resources);
         $this->assertContains('test_user', $resources);
     }
 
@@ -156,7 +152,7 @@ class LockableProcedureTest extends TestCase
                 return [];
             }
 
-            public function getLockResource(\Tourze\JsonRPC\Core\Model\JsonRpcParams $params): ?array
+            public function getLockResource(\Tourze\JsonRPC\Core\Model\JsonRpcParams $params): array
             {
                 return ['custom_resource_key'];
             }
@@ -165,8 +161,6 @@ class LockableProcedureTest extends TestCase
         /** @var JsonRpcParams&MockObject $mockParams */
         $mockParams = $this->createMock(JsonRpcParams::class);
         $resources = $procedure->getLockResource($mockParams);
-
-        $this->assertIsArray($resources);
         $this->assertEquals(['custom_resource_key'], $resources);
     }
 
@@ -225,12 +219,12 @@ class LockableProcedureTest extends TestCase
                 return [];
             }
 
-            protected function getIdempotentCacheKey(\Tourze\JsonRPC\Core\Model\JsonRpcRequest $request): ?string
+            protected function getIdempotentCacheKey(\Tourze\JsonRPC\Core\Model\JsonRpcRequest $request): string
             {
                 return 'custom_cache_key';
             }
 
-            public function mockGetIdempotentCacheKey(\Tourze\JsonRPC\Core\Model\JsonRpcRequest $request): ?string
+            public function mockGetIdempotentCacheKey(\Tourze\JsonRPC\Core\Model\JsonRpcRequest $request): string
             {
                 return $this->getIdempotentCacheKey($request);
             }
