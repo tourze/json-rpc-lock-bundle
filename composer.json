@@ -11,19 +11,20 @@
     "symfony/framework-bundle": "^7.3",
     "symfony/http-kernel": "^7.3",
     "symfony/lock": "^7.3",
+    "symfony/property-access": "^7.3",
     "symfony/security-bundle": "^7.3",
     "symfony/security-core": "^7.3",
     "symfony/service-contracts": "^3.6",
     "symfony/yaml": "^7.3",
     "tourze/backtrace-helper": "1.*",
     "tourze/bundle-dependency": "1.*",
-    "tourze/json-rpc-core": "0.0.*",
-    "tourze/lock-service-bundle": "0.1.*"
+    "tourze/json-rpc-core": "1.0.*",
+    "tourze/lock-service-bundle": "1.0.*"
   },
   "require-dev": {
     "phpstan/phpstan": "^2.1",
     "phpunit/phpunit": "^11.5",
-    "tourze/phpunit-symfony-kernel-test": "1.*",
+    "tourze/phpunit-symfony-kernel-test": "1.0.*",
     "tourze/phpunit-symfony-unit-test": "1.*",
     "tourze/symfony-dependency-service-loader": "1.*"
   },
