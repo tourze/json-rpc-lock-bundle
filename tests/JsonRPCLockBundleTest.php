@@ -2,20 +2,16 @@
 
 namespace Tourze\JsonRPCLockBundle\Tests;
 
-use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 use Tourze\JsonRPCLockBundle\JsonRPCLockBundle;
+use Tourze\PHPUnitSymfonyKernelTest\AbstractBundleTestCase;
 
 /**
- * 测试 JsonRPCLockBundle 核心类
+ * @internal
  */
-class JsonRPCLockBundleTest extends TestCase
+#[CoversClass(JsonRPCLockBundle::class)]
+#[RunTestsInSeparateProcesses]
+final class JsonRPCLockBundleTest extends AbstractBundleTestCase
 {
-    /**
-     * 测试 Bundle 类的基本实例化
-     */
-    public function testBundleInstantiation(): void
-    {
-        $bundle = new JsonRPCLockBundle();
-        $this->assertInstanceOf(JsonRPCLockBundle::class, $bundle);
-    }
 }
